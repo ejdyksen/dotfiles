@@ -106,7 +106,13 @@ export JAVA_HOME="$(/usr/libexec/java_home)"
 export EC2_PRIVATE_KEY="$(/bin/ls "$HOME"/.ec2/pk-*.pem | /usr/bin/head -1)"
 export EC2_CERT="$(/bin/ls "$HOME"/.ec2/cert-*.pem | /usr/bin/head -1)"
 export EC2_HOME="/usr/local/Library/LinkedKegs/ec2-api-tools/jars"
-export EC2_URL=https://us-west-2.ec2.amazonaws.com
+export AWS_AUTO_SCALING_HOME="/usr/local/Library/LinkedKegs/auto-scaling/jars"
+export AWS_CLOUDWATCH_HOME="/usr/local/Library/LinkedKegs/cloud-watch/jars"
+export SERVICE_HOME="$AWS_CLOUDWATCH_HOME"
+
+#export AWS_CLOUDWATCH_URL=https://monitoring.us-west-2.amazonaws.com
+#export AWS_AUTO_SCALING_URL=https://autoscaling.us-west-2.amazonaws.com
+#export EC2_URL=https://us-west-2.ec2.amazonaws.com
 
 #
 # Other
