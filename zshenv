@@ -113,3 +113,4 @@ export EC2_URL=https://us-west-2.ec2.amazonaws.com
 #
 export PYTHONPATH=$(brew --prefix)/lib/python2.7/site-packages
 export NODE_PATH=/usr/local/lib/node
+path+=/usr/local/heroku/bin
