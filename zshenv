@@ -117,6 +117,5 @@ export SERVICE_HOME="$AWS_CLOUDWATCH_HOME"
 #
 # Other
 #
-export PYTHONPATH=$(brew --prefix)/lib/python2.7/site-packages
 export NODE_PATH=/usr/local/lib/node
 path+=/usr/local/heroku/bin
