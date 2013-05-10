@@ -12,8 +12,6 @@ fi
 
 # Customize to your needs...
 
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm" # Load RVM function
-
 alias st='subl'
 alias stt='subl .'
 

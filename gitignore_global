@@ -72,3 +72,4 @@ local.properties
 *.tags
 *.tags_sorted_by_file
 
+.rest-shell
