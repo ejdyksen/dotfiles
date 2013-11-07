@@ -101,7 +101,7 @@ fi
 
 #
 # Amazon EC2 settings
-# 
+#
 if [ -d "~/.ec2/" ]; then
   export JAVA_HOME="$(/usr/libexec/java_home)"
   export EC2_PRIVATE_KEY="$(/bin/ls "$HOME"/.ec2/pk-*.pem | /usr/bin/head -1)"
@@ -124,3 +124,7 @@ export ANDROID_SDK_ROOT=/usr/local/opt/android-sdk
 path+=~/.rvm/bin
 path+=/usr/local/heroku/bin
 path+=/usr/local/share/npm/bin
+
+
+export RBENV_ROOT=/usr/local/var/rbenv
+
