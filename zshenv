@@ -17,7 +17,7 @@ fi
 # Editors
 #
 
-export EDITOR='subl'
+export EDITOR='vim'
 export VISUAL='subl'
 export PAGER='less'
 export BUNDLER_EDITOR='subl'
