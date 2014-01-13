@@ -10,8 +10,10 @@
 *.zip
 *.gz
 *.bzip
+*.bz2
 *.xz
 *.lzma
+*.cab
 
 #packing-only formats
 *.iso
@@ -24,21 +26,22 @@
 *.egg
 *.deb
 *.rpm
+*.msi
+*.msm
+*.msp
 
 
 ## Eclipse
 *.pydevproject
-.project
 .metadata
-bin/**
-tmp/**
-tmp/**/*
+.gradle
+bin/
+tmp/
 *.tmp
 *.bak
 *.swp
 *~.nib
 local.properties
-.classpath
 .settings/
 .loadpath
 
@@ -54,8 +57,21 @@ local.properties
 # PDT-specific
 .buildpath
 
+# sbteclipse plugin
+.target
+
+# TeXlipse plugin
+.texlipse
+
+
 ## Mac OS
 .DS_Store
+.AppleDouble
+.LSOverride
+
+# Icon must ends with two \r.
+Icon
+
 
 # Thumbnails
 ._*
@@ -64,12 +80,52 @@ local.properties
 .Spotlight-V100
 .Trashes
 
-## SublimteText
-/*.sublime-project
-/*.sublime-workspace
 
-# CTags
-*.tags
-*.tags_sorted_by_file
+## Windows (just in case)
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
 
-.rest-shell
+# Folder config file
+Desktop.ini
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+# Windows Installer files
+*.cab
+*.msi
+*.msm
+*.msp
+
+
+## SublimeText
+# workspace files are user-specific
+*.sublime-workspace
+
+# project files should be checked into the repository, unless a significant
+# proportion of contributors will probably not be using SublimeText
+*.sublime-project
+
+
+## Other source control
+.svn/
+
+/CVS/*
+*/CVS/*
+.cvsignore
+*/.cvsignore
+
+/.hg/*
+*/.hg/*
+.hgignore
+
+
+## vim
+[._]*.s[a-w][a-z]
+[._]s[a-w][a-z]
+*.un~
+Session.vim
+.netrwhist
+*~
+
