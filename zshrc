@@ -10,8 +10,10 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 fi
 
+# Initialize rbenv
+if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi # rbenv
+
 # Customize to your needs...
 
 alias st='subl'
 alias stt='subl .'
-

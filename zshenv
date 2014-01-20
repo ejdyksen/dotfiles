@@ -123,5 +123,3 @@ export NODE_PATH=/usr/local/lib/node
 export ANDROID_SDK_ROOT=/usr/local/opt/android-sdk
 path+=/usr/local/heroku/bin
 path+=/usr/local/share/npm/bin
-
-export RBENV_ROOT=/usr/local/var/rbenv
