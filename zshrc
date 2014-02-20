@@ -13,6 +13,9 @@ fi
 # Initialize rbenv
 if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi # rbenv
 
+# Initialize RVM
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
+
 # Customize to your needs...
 
 alias st='subl'

@@ -121,5 +121,6 @@ export SERVICE_HOME="$AWS_CLOUDWATCH_HOME"
 #
 export NODE_PATH=/usr/local/lib/node
 export ANDROID_SDK_ROOT=/usr/local/opt/android-sdk
+path+=~/.rvm/bin
 path+=/usr/local/heroku/bin
 path+=/usr/local/share/npm/bin
