@@ -13,6 +13,9 @@ fi
 # Initialize rbenv
 if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi # rbenv
 
+# Zsh completion for awscli
+if which aws > /dev/null; then source ~/Library/Python/2.7/bin/aws_zsh_completer.sh; fi
+
 # Initialize RVM
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
 
