@@ -44,8 +44,9 @@ zstyle ':prezto:load' pmodule \
 # Editor
 #
 
-# Set the key mapping style to 'emacs' or 'vi'.
-zstyle ':prezto:module:editor' keymap 'emacs'
+zstyle ':prezto:module:editor' key-bindings 'vi'
+zstyle ':prezto:module:editor' keymap 'vi'
+export KEYTIMEOUT=1
 
 # Auto convert .... to ../..
 # zstyle ':prezto:module:editor' dot-expansion 'yes'
