@@ -10,9 +10,16 @@
 	autocrlf = input
 [github]
 	user = ejdyksen
+[difftool "Kaleidoscope"]
+    cmd = ksdiff --partial-changeset --relative-path \"$MERGED\" -- \"$LOCAL\" \"$REMOTE\"
+[diff]
+    tool = Kaleidoscope
+[difftool]
+    prompt = false
+[mergetool "Kaleidoscope"]
+    cmd = ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" --snapshot \"$REMOTE\" --snapshot
+    trustExitCode = true
 [mergetool]
-	keepBackup = true
-[alias]
-	add-ignore = !"g(){ url="https://raw.github.com/github/gitignore/master/$1.gitignore" ; curl --output /dev/null --silent --head --fail "$url" ; if [ $? -eq 0 ]; then curl "$url" >> .gitignore && echo "Appended .gitignore with $url" ; else echo "$url doesnt exist." ; fi ; }; g"
-[push]
-	default = simple
+    prompt = false
+[merge]
+    tool = Kaleidoscope
