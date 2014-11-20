@@ -16,6 +16,10 @@ if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 # Zsh completion for awscli
 if which aws > /dev/null; then source ~/Library/Python/2.7/bin/aws_zsh_completer.sh; fi
 
+# virtualenvwrapper
+export WORKON_HOME=$HOME/.virtualenvs
+source /usr/local/bin/virtualenvwrapper.sh
+
 # Customize to your needs...
 
 alias st='subl'
