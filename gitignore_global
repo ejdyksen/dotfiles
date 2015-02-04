@@ -111,3 +111,5 @@ Session.vim
 .netrwhist
 *~
 
+# Redis DB
+dump.rdb
