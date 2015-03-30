@@ -20,7 +20,7 @@ if which aws > /dev/null; then source /usr/local/share/zsh/site-functions/_aws; 
 
 # virtualenvwrapper
 export WORKON_HOME=$HOME/.virtualenvs
-source /usr/local/bin/virtualenvwrapper.sh
+if which /usr/local/bin/virtualenvwrapper.sh > /dev/null; then source /usr/local/bin/virtualenvwrapper.sh; fi
 
 # Call virtualenvwrapper's "workon" if .venv exists.  This is modified from--
 # http://justinlilly.com/python/virtualenv_wrapper_helper.html
