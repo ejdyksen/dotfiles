@@ -8,6 +8,8 @@
 	quotepath = false
 	editor = vim
 	autocrlf = input
+[alias]
+  tree = log --graph --decorate --pretty=oneline --abbrev-commit
 [github]
 	user = ejdyksen
 [difftool "Kaleidoscope"]
