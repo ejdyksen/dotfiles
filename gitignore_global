@@ -89,6 +89,8 @@ xcuserdata
 DerivedData
 *.xcuserstate
 
+#IntelliJ stuff
+.idea/
 
 ## Other source control
 .svn/
