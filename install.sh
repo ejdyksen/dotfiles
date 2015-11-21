@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 real_path () {
     _=`pwd`
