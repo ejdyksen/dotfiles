@@ -13,6 +13,10 @@ fi
 # Initialize rbenv
 if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 
+# Initialize nvm
+export NVM_DIR=~/.nvm
+if which nvm > /dev/null; then source $(brew --prefix nvm)/nvm.sh; fi
+
 # Zsh completion for awscli
 if which aws > /dev/null; then source /usr/local/share/zsh/site-functions/_aws; fi
 
