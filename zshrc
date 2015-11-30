@@ -11,14 +11,21 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
 fi
 
 # Initialize rbenv
-if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
+if [ -d "/usr/local/Cellar/rbenv" ]; then
+  eval "$(rbenv init -)"
+fi
 
 # Initialize nvm
-export NVM_DIR=~/.nvm
-if which nvm > /dev/null; then source $(brew --prefix nvm)/nvm.sh; fi
+
+if [ -d "/usr/local/Cellar/nvm" ]; then
+  export NVM_DIR=~/.nvm
+  source $(brew --prefix nvm)/nvm.sh
+fi
 
 # Zsh completion for awscli
-if which aws > /dev/null; then source /usr/local/share/zsh/site-functions/_aws; fi
+if [ -d "/usr/local/Cellar/awscli" ]; then
+  source /usr/local/share/zsh/site-functions/_aws
+fi
 
 # Aliases
 
