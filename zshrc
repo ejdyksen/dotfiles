@@ -17,15 +17,15 @@ fi
 
 # Initialize nvm
 
-if [ -d "/usr/local/Cellar/nvm" ]; then
-  export NVM_DIR=~/.nvm
-  source $(brew --prefix nvm)/nvm.sh
-fi
+# if [ -d "/usr/local/Cellar/nvm" ]; then
+#   export NVM_DIR=~/.nvm
+#   source $(brew --prefix nvm)/nvm.sh
+# fi
 
 # Zsh completion for awscli
-if [ -d "/usr/local/Cellar/awscli" ]; then
-  source /usr/local/share/zsh/site-functions/_aws
-fi
+# if [ -d "/usr/local/Cellar/awscli" ]; then
+#   source /usr/local/share/zsh/site-functions/_aws
+# fi
 
 # Aliases
 
