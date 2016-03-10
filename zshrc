@@ -15,6 +15,10 @@ if [ -d "/usr/local/Cellar/rbenv" ]; then
   eval "$(rbenv init -)"
 fi
 
+# Initialize dnvm
+
+[ -s "/Users/ejd/.dnx/dnvm/dnvm.sh" ] && . "/Users/ejd/.dnx/dnvm/dnvm.sh" # Load dnvm
+
 # Initialize nvm
 
 # if [ -d "/usr/local/Cellar/nvm" ]; then
