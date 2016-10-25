@@ -17,7 +17,7 @@ fi
 
 # Initialize dnvm
 
-[ -s "/Users/ejd/.dnx/dnvm/dnvm.sh" ] && . "/Users/ejd/.dnx/dnvm/dnvm.sh" # Load dnvm
+# [ -s "/Users/ejd/.dnx/dnvm/dnvm.sh" ] && . "/Users/ejd/.dnx/dnvm/dnvm.sh" # Load dnvm
 
 # Initialize nvm
 
@@ -27,9 +27,9 @@ fi
 # fi
 
 # Zsh completion for awscli
-# if [ -d "/usr/local/Cellar/awscli" ]; then
-#   source /usr/local/share/zsh/site-functions/_aws
-# fi
+if [ -d "/usr/local/Cellar/awscli" ]; then
+  source /usr/local/share/zsh/site-functions/_aws
+fi
 
 # Aliases
 
