@@ -4,27 +4,18 @@
 [color]
 	ui = true
 [core]
-	excludesfile = ~/.gitignore_global
+	excludesfile = /Users/ejd/.gitignore_global
 	quotepath = false
 	editor = vim
 	autocrlf = input
+	pager = diff-so-fancy | less --tabs=4 -RFX
 [alias]
   tree = log --graph --decorate --pretty=oneline --abbrev-commit
 [github]
-	user = ejdyksen
-[difftool "Kaleidoscope"]
-    cmd = ksdiff --partial-changeset --relative-path \"$MERGED\" -- \"$LOCAL\" \"$REMOTE\"
-[diff]
-    tool = Kaleidoscope
-    renames = copies
-[difftool]
+	user = ejdyksen[difftool]
     prompt = false
-[mergetool "Kaleidoscope"]
-    cmd = ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" --snapshot \"$REMOTE\" --snapshot
-    trustExitCode = true
-[mergetool]
-    prompt = false
-[merge]
-    tool = Kaleidoscope
 [push]
 	default = simple
+[pull]
+	rebase = false
+	ff = only
