@@ -1,6 +1,7 @@
 [user]
 	name = E.J. Dyksen
 	email = ej@dyksen.net
+	signingkey = BE144C14AF9312A0
 [color]
 	ui = true
 [core]
@@ -19,3 +20,5 @@
 [pull]
 	rebase = false
 	ff = only
+[commit]
+	gpgsign = true
