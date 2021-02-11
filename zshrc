@@ -15,6 +15,16 @@ if [ -d "/usr/local/Cellar/rbenv" ]; then
   eval "$(rbenv init -)"
 fi
 
+# Initialize pyenv
+if [ -d "/usr/local/Cellar/pyenv" ]; then
+  eval "$(pyenv init -)"
+fi
+
+# Initialize nodenv
+if [ -d "/usr/local/Cellar/nodenv" ]; then
+  eval "$(nodenv init -)"
+fi
+
 # Zsh completion for gcloud
 if [ -d "/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/" ]; then
   source '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc'
