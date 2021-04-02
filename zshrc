@@ -37,5 +37,4 @@ fi
 
 # Aliases
 
-alias st='subl'
-alias stt='subl .'
+alias stt='code .'
