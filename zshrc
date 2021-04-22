@@ -5,6 +5,9 @@
 #   Sorin Ionescu <sorin.ionescu@gmail.com>
 #
 
+autoload bashcompinit
+bashcompinit
+
 # Source Prezto.
 if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
@@ -31,9 +34,19 @@ if [ -d "/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/" ]; then
   source '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc'
 fi
 
+# Zsh completion for Homebrew packages (aws, az, kubectl, etc)
 if type brew &>/dev/null; then
   FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
+
+  autoload -Uz compinit
+  compinit
 fi
+
+autoload -U +X bashcompinit && bashcompinit
+if [ -d "/usr/local/Cellar/azure-cli" ]; then
+  source '/usr/local/etc/bash_completion.d/az'
+fi
+
 
 # Aliases
 
