@@ -38,3 +38,4 @@ fi
 # Aliases
 
 alias stt='code .'
+alias kc='kubectl'
