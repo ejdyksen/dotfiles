@@ -13,25 +13,33 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 fi
 
+# Add new homebrew to path
+if [ -d "/opt/homebrew" ]; then
+  export PATH="/opt/homebrew/bin:$PATH"
+  HOMEBREW_HOME="/opt/homebrew"
+else
+  HOMEBREW_HOME="/usr/local"
+fi
+
 # Initialize rbenv
-if [ -d "/usr/local/Cellar/rbenv" ]; then
+if [ -d "${HOMEBREW_HOME}/Cellar/rbenv" ]; then
   eval "$(rbenv init -)"
 fi
 
 # Initialize pyenv
-if [ -d "/usr/local/Cellar/pyenv" ]; then
+if [ -d "${HOMEBREW_HOME}/Cellar/pyenv" ]; then
   eval "$(pyenv init -)"
 fi
 
 # Initialize nodenv
-if [ -d "/usr/local/Cellar/nodenv" ]; then
+if [ -d "${HOMEBREW_HOME}/Cellar/nodenv" ]; then
   eval "$(nodenv init -)"
 fi
 
 # Zsh completion for gcloud
-if [ -d "/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/" ]; then
-  source '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc'
-  source '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc'
+if [ -d "${HOMEBREW_HOME}/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/" ]; then
+  source "${HOMEBREW_HOME}/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc"
+  source "${HOMEBREW_HOME}/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc"
 fi
 
 # Zsh completion for Homebrew packages (aws, az, kubectl, etc)
@@ -43,8 +51,8 @@ if type brew &>/dev/null; then
 fi
 
 autoload -U +X bashcompinit && bashcompinit
-if [ -d "/usr/local/Cellar/azure-cli" ]; then
-  source '/usr/local/etc/bash_completion.d/az'
+if [ -d "${HOMEBREW_HOME}/Cellar/azure-cli" ]; then
+  source "${HOMEBREW_HOME}/etc/bash_completion.d/az"
 fi
 
 
