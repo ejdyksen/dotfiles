@@ -23,7 +23,9 @@ fi
 
 # Initialize rbenv
 if [ -d "${HOMEBREW_HOME}/Cellar/rbenv" ]; then
-  eval "$(rbenv init -)"
+  export PYENV_ROOT="$HOME/.pyenv"
+  export PATH="$PYENV_ROOT/bin:$PATH"
+  eval "$(pyenv init --path)"
 fi
 
 # Initialize pyenv
