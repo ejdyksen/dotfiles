@@ -23,14 +23,14 @@ fi
 
 # Initialize rbenv
 if [ -d "${HOMEBREW_HOME}/Cellar/rbenv" ]; then
-  export PYENV_ROOT="$HOME/.pyenv"
-  export PATH="$PYENV_ROOT/bin:$PATH"
-  eval "$(pyenv init --path)"
+  eval "$(rbenv init -)"
 fi
 
 # Initialize pyenv
 if [ -d "${HOMEBREW_HOME}/Cellar/pyenv" ]; then
-  eval "$(pyenv init -)"
+  export PYENV_ROOT="$HOME/.pyenv"
+  export PATH="$PYENV_ROOT/bin:$PATH"
+  eval "$(pyenv init --path)"
 fi
 
 # Initialize nodenv
