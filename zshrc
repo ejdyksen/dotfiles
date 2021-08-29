@@ -62,3 +62,5 @@ fi
 
 alias stt='code .'
 alias kc='kubectl'
+alias kctx='kubectx'
+alias kns='kubens'
