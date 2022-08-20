@@ -11,7 +11,7 @@ real_path () {
 
 SCRIPT_DIR=$(real_path $0)
 SCRIPT_PATH=${SCRIPT_DIR}/`basename $0`
-FORCE=0
+FORCE=1
 PREFIX=$HOME
 
 while getopts "fp:" flag; do
