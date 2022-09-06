@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-git clone --recursive https://github.com/ejdyksen/prezto.git ~/.zprezto
-
 real_path () {
     _=`pwd`
     [ -d $DIR ] && DIR=$1

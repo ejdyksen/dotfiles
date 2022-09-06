@@ -1,0 +1,13 @@
+romkatv/powerlevel10k
+
+zsh-users/zsh-completions
+
+# frameworks like oh-my-zsh are supported
+ohmyzsh/ohmyzsh path:lib
+#ohmyzsh/ohmyzsh path:plugins/git
+ohmyzsh/ohmyzsh path:plugins/history
+ohmyzsh/ohmyzsh path:plugins/history-substring-search
+ohmyzsh/ohmyzsh path:plugins/brew
+ohmyzsh/ohmyzsh path:plugins/aws
+ohmyzsh/ohmyzsh path:plugins/rbenv
+# ohmyzsh/ohmyzsh path:plugins/pyenv
