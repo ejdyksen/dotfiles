@@ -1,12 +1,9 @@
 romkatv/powerlevel10k
 
 zsh-users/zsh-completions
-
 zsh-users/zsh-syntax-highlighting
 
-# frameworks like oh-my-zsh are supported
 ohmyzsh/ohmyzsh path:lib
-#ohmyzsh/ohmyzsh path:plugins/git
 ohmyzsh/ohmyzsh path:plugins/history
 ohmyzsh/ohmyzsh path:plugins/history-substring-search
 ohmyzsh/ohmyzsh path:plugins/brew
