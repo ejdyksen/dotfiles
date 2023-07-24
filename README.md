@@ -1,3 +1,5 @@
 # ejdyksen dotfiles
 
-This is my zsh setup. Pretty simple, most customizations are in a modified [prezto](https://github.com/sorin-ionescu/prezto)
+This is my zsh setup, based on [Antidote](http://github.com/mattmc3/antidote).
+
+Install using `install.sh`.

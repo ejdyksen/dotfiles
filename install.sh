@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
+
 SCRIPT_PATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-# Check if script flag opts -f or --force is set
 if [[ $1 == "-f" ]]; then
   FORCE=1
 else
@@ -12,24 +12,33 @@ function linkdotfile {
   SRC="$SCRIPT_PATH/$1"
   DEST="$HOME/$1"
 
-  if [[ $FORCE -eq 1 ]]; then
+  # Only delete dirs if -f
+  if [[ $FORCE -eq 1 && -d $DEST ]]; then
     echo "Linking: $DEST (forced)"
-    rm -f $DEST
+    rm -rf $DEST
     ln -s $SRC $DEST
     return
   fi
 
-  if [[ -d $DEST || -f $DEST || -L $DEST  ]]; then
-    echo "Exists:  $DEST"
-  else
-    echo "Linking: $DEST"
-    ln -s $SRC $DEST
+  if [[ -d $DEST ]]; then
+    echo "Skipping: $DEST (dir exists)"
+    return
   fi
+
+  # Just always delete files/links
+  if [[ -f $DEST || -L $DEST  ]]; then
+    rm -f $DEST
+  fi
+
+  echo "Linking: $DEST"
+  ln -s $SRC $DEST
 }
+
+linkdotfile .zshrc
+linkdotfile .zshenv
 
 linkdotfile .asdfrc
 linkdotfile .gitconfig
 linkdotfile .gitignore_global
 linkdotfile .tmux.conf
-linkdotfile .zshenv
 linkdotfile .ssh

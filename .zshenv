@@ -2,19 +2,13 @@
 #
 # .zshenv - Zsh environment file, loaded always.
 #
-
 # NOTE: .zshenv needs to live at ~/.zshenv, not in $ZDOTDIR!
 
-# Set ZDOTDIR if you want to re-home Zsh.
-# export XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-$HOME/.config}
-#echo directory of this file
-if [[ -d "/home/codespace" ]]; then
+export XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-$HOME/.config}
+
+# Codespaces handles $ZDOTDIR, so explicitly set it if we're on a codespaces machine
+if [[ -d "/workspaces/.codespaces/.persistedshare/dotfiles" ]]; then
   export ZDOTDIR="/workspaces/.codespaces/.persistedshare/dotfiles"
 else
   export ZDOTDIR=${ZDOTDIR:-$HOME/.dotfiles}
-fi
-
-# You can use .zprofile to set environment vars for non-login, non-interactive shells.
-if [[ ( "$SHLVL" -eq 1 && ! -o LOGIN ) && -s "${ZDOTDIR:-$HOME}/.zprofile" ]]; then
-  source "${ZDOTDIR:-$HOME}/.zprofile"
 fi

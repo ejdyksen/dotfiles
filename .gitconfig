@@ -14,7 +14,7 @@
   tree = log --graph --decorate --pretty=oneline --abbrev-commit
 [github]
 	user = ejdyksen[difftool]
-    prompt = false
+  prompt = false
 [push]
 	default = simple
 [pull]
