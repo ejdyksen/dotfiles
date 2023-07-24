@@ -5,20 +5,21 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
+# Zsh options.
+setopt extended_glob
+
 # clone antidote if necessary
-if ! [[ -e ${ZDOTDIR:-~}/.antidote ]]; then
-  git clone https://github.com/mattmc3/antidote.git ${ZDOTDIR:-~}/.antidote
-fi
+[[ -d $HOME/.antidote ]] ||
+  git clone https://github.com/mattmc3/antidote $HOME/.antidote
 
 autoload -Uz compinit
 compinit
 
-# source antidote and load plugins from `${ZDOTDIR:-~}/.zsh_plugins.txt`
-source ${ZDOTDIR:-~}/.antidote/antidote.zsh
+source $HOME/.antidote/antidote.zsh
 antidote load
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+[[ ! -f $ZDOTDIR/.p10k.zsh ]] || source $ZDOTDIR/.p10k.zsh
 
 # TODO: do this correctly
 alias kc='kubectl'

@@ -1,2 +1,16 @@
-ssh/
-zhistory
+# Don't commit SSH keys, without git add -f
+.ssh/
+
+# zsh specific
+.antidote/
+.zcompcache/
+.zsh_sessions/
+.zcompdump*
+.zsh_history
+.zsh_plugins.zsh
+*.bak
+*.local
+*.local.zsh
+*.zwc
+*.zwc.old
+~*
