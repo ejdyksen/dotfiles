@@ -13,12 +13,11 @@
 [alias]
   tree = log --graph --decorate --pretty=oneline --abbrev-commit
 [github]
-	user = ejdyksen[difftool]
+	user = ejdyksen
+[difftool]
   prompt = false
 [push]
 	default = simple
 [pull]
 	rebase = false
 	ff = only
-[init]
-	defaultBranch = main
