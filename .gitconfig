@@ -1,7 +1,7 @@
 [user]
 	name = E.J. Dyksen
 	email = ej@dyksen.net
-	signingkey = BE144C14AF9312A0
+	signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEBg1zyzEOeJKYDwTnGEYiCd/6uj2ZpMlShhyZX+9OS6
 [color]
 	ui = true
 [core]
@@ -23,3 +23,9 @@
 [pull]
 	rebase = false
 	ff = only
+[gpg]
+	format = ssh
+[gpg "ssh"]
+	program = /Applications/1Password.app/Contents/MacOS/op-ssh-sign
+[commit]
+	gpgsign = true
