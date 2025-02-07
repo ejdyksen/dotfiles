@@ -39,3 +39,9 @@ setopt hist_ignore_space      # ignore commands that start with space
 setopt hist_verify            # show command with history expansion to user before running it
 setopt hist_reduce_blanks     # remove superfluous blanks before recording entry
 setopt hist_ignore_all_dups   # delete old recorded entry if new entry is a duplicate
+
+# TODO: Remove this when asdf plugin is working again
+if which asdf >/dev/null 2>&1; then
+    export ASDF_DATA_DIR="$HOME/.asdf"
+    export PATH="$ASDF_DATA_DIR/shims:$PATH"
+fi
