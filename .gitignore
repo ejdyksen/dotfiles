@@ -1,6 +1,9 @@
 # Don't commit SSH keys, without git add -f
 .ssh/
 
+# Don't commit local config
+.gitconfig_local
+
 # zsh specific
 .antidote/
 .zcompcache/

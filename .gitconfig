@@ -9,7 +9,9 @@
 	quotepath = false
 	editor = vim
 	autocrlf = input
-	pager = delta
+	pager = ~/.dotfiles/bin/git-pager.sh
+[init]
+	defaultBranch = main
 [interactive]
 	diffFilter = delta --color-only
 [delta]
@@ -23,11 +25,6 @@
 [pull]
 	rebase = false
 	ff = only
-[gpg]
-	format = ssh
-[gpg "ssh"]
-	program = /Applications/1Password.app/Contents/MacOS/op-ssh-sign
-[commit]
-	gpgsign = true
-[init]
-	defaultBranch = main
+
+[include]
+	path = ~/.dotfiles/.gitconfig_local
