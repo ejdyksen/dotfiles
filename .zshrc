@@ -10,27 +10,22 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-# Zsh options.
+# Zsh options
 setopt extended_glob
 
 # clone antidote if necessary
 [[ -d $HOME/.antidote ]] ||
   git clone https://github.com/mattmc3/antidote $HOME/.antidote
 
-autoload -Uz compinit
-compinit
-
+# Load antidote and plugins
 source $HOME/.antidote/antidote.zsh
 antidote load
 
+# Load my aliases
+source $ZDOTDIR/.zaliases
+
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f $ZDOTDIR/.p10k.zsh ]] || source $ZDOTDIR/.p10k.zsh
-
-# TODO: do this correctly
-alias kc='kubectl'
-if [ $commands[kubectl] ]; then
-  source <(kubectl completion zsh)
-fi
 
 setopt extended_history       # record timestamp of command in HISTFILE
 setopt hist_expire_dups_first # delete duplicates first when HISTFILE size exceeds HISTSIZE
@@ -42,6 +37,5 @@ setopt hist_ignore_all_dups   # delete old recorded entry if new entry is a dupl
 
 # TODO: Remove this when asdf plugin is working again
 if which asdf >/dev/null 2>&1; then
-    export ASDF_DATA_DIR="$HOME/.asdf"
-    export PATH="$ASDF_DATA_DIR/shims:$PATH"
+  export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
 fi
