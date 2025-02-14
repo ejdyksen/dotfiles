@@ -27,4 +27,5 @@
 	ff = only
 
 [include]
+	path = ~/.dotfiles/.gitconfig_platform
 	path = ~/.dotfiles/.gitconfig_local

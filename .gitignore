@@ -2,6 +2,7 @@
 .ssh/
 
 # Don't commit local config
+.gitconfig_platform
 .gitconfig_local
 
 # zsh specific

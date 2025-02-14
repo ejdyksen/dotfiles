@@ -46,12 +46,13 @@ linkdotfile .ssh
 # Platform specific config
 if [[ "$OSTYPE" == "darwin"* ]]; then
   # macOS
-  ln -s $SCRIPT_PATH/.gitconfig_macos $SCRIPT_PATH/.gitconfig_local
+  ln -s $SCRIPT_PATH/.gitconfig_macos $SCRIPT_PATH/.gitconfig_platform
   ln -s $SCRIPT_PATH/.ssh/config_macos $SCRIPT_PATH/.ssh/config
 elif [[ "$OSTYPE" == "linux"* ]]; then
   # Linux
-  ln -s $SCRIPT_PATH/.gitconfig_linux $SCRIPT_PATH/.gitconfig_local
+  ln -s $SCRIPT_PATH/.gitconfig_linux $SCRIPT_PATH/.gitconfig_platform
   ln -s $SCRIPT_PATH/.ssh/config_linux $SCRIPT_PATH/.ssh/config
 fi
 
+touch $SCRIPT_PATH/.gitconfig_local
 touch $SCRIPT_PATH/.ssh/config_local
