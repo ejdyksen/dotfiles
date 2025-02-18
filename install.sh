@@ -34,7 +34,6 @@ function linkdotfile {
   ln -s $SRC $DEST
 }
 
-linkdotfile .zshrc
 linkdotfile .zshenv
 
 linkdotfile .gitconfig

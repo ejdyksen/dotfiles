@@ -8,7 +8,10 @@ export XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-$HOME/.config}
 
 # Codespaces handles $ZDOTDIR, so explicitly set it if we're on a codespaces machine
 if [[ -d "/workspaces/.codespaces/.persistedshare/dotfiles" ]]; then
-  export ZDOTDIR="/workspaces/.codespaces/.persistedshare/dotfiles"
+  export DOTFILES="/workspaces/.codespaces/.persistedshare/dotfiles"
 else
-  export ZDOTDIR=${ZDOTDIR:-$HOME/.dotfiles}
+  export DOTFILES=${DOTFILES:-$HOME/.dotfiles}
 fi
+
+# Set DOTFILES environment variable to the parent directory of this file
+export ZDOTDIR="${DOTFILES}/zsh"
