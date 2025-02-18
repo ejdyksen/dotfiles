@@ -37,7 +37,6 @@ function linkdotfile {
 linkdotfile .zshrc
 linkdotfile .zshenv
 
-linkdotfile .asdfrc
 linkdotfile .gitconfig
 linkdotfile .gitignore_global
 linkdotfile .tmux.conf
