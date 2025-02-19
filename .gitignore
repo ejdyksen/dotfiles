@@ -1,5 +1,5 @@
 # Don't commit SSH keys, without git add -f
-.ssh/
+ssh/
 
 # Don't commit local config
 *.local
