@@ -57,7 +57,7 @@ function linkdotfile {
 
 linkdotfile "zsh/.zshenv" ".zshenv"
 linkdotfile "git/gitconfig" .gitconfig
-linkdotfile .tmux.conf
+linkdotfile "other/tmux.conf" .tmux.conf
 linkdotfile ssh .ssh
 
 # Platform specific config
