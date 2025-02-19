@@ -2,8 +2,8 @@
 .ssh/
 
 # Don't commit local config
-.gitconfig_platform
-.gitconfig_local
+*.local
+*.platform
 
 # zsh specific
 .antidote/
@@ -13,7 +13,6 @@
 .zsh_history
 .zsh_plugins.zsh
 *.bak
-*.local
 *.local.zsh
 *.zwc
 *.zwc.old

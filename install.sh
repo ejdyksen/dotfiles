@@ -56,22 +56,24 @@ function linkdotfile {
 }
 
 linkdotfile "zsh/.zshenv" ".zshenv"
-
-linkdotfile .gitconfig
-linkdotfile .gitignore_global
+linkdotfile "git/gitconfig" .gitconfig
 linkdotfile .tmux.conf
 linkdotfile .ssh
 
 # Platform specific config
-if [[ "$OSTYPE" == "darwin"* ]]; then
-  # macOS
-  ln -s $SCRIPT_PATH/.gitconfig_macos $SCRIPT_PATH/.gitconfig_platform
-  ln -s $SCRIPT_PATH/.ssh/config_macos $SCRIPT_PATH/.ssh/config
+if [[ -d "/workspaces/.codespaces/.persistedshare/dotfiles" ]]; then
+  echo "Setting up git and ssh for Codespaces"
+  ln -s $SCRIPT_PATH/git/gitconfig.codespaces $SCRIPT_PATH/git/gitconfig.platform
+  ln -s $SCRIPT_PATH/.ssh/config.linux $SCRIPT_PATH/.ssh/config
+elif [[ "$OSTYPE" == "darwin"* ]]; then
+  echo "Setting up git and ssh for macOS"
+  ln -s $SCRIPT_PATH/git/gitconfig.macos $SCRIPT_PATH/git/gitconfig.platform
+  ln -s $SCRIPT_PATH/.ssh/config.macos $SCRIPT_PATH/.ssh/config
 elif [[ "$OSTYPE" == "linux"* ]]; then
-  # Linux
-  ln -s $SCRIPT_PATH/.gitconfig_linux $SCRIPT_PATH/.gitconfig_platform
-  ln -s $SCRIPT_PATH/.ssh/config_linux $SCRIPT_PATH/.ssh/config
+  echo "Setting up git and ssh for Linux"
+  ln -s $SCRIPT_PATH/git/gitconfig.linux $SCRIPT_PATH/git/gitconfig.platform
+  ln -s $SCRIPT_PATH/.ssh/config.linux $SCRIPT_PATH/.ssh/config
 fi
 
-touch $SCRIPT_PATH/.gitconfig_local
-touch $SCRIPT_PATH/.ssh/config_local
+touch $SCRIPT_PATH/git/gitconfig.local
+touch $SCRIPT_PATH/.ssh/config.local
