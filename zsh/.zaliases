@@ -1,3 +1,6 @@
 #!/bin/zsh
+#
+# .zaliases - My aliases for zsh
+#
 
 alias kc=kubectl
