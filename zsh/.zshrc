@@ -27,13 +27,20 @@ source $ZDOTDIR/.zaliases
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f $ZDOTDIR/.p10k.zsh ]] || source $ZDOTDIR/.p10k.zsh
 
-setopt extended_history       # record timestamp of command in HISTFILE
-setopt hist_expire_dups_first # delete duplicates first when HISTFILE size exceeds HISTSIZE
-setopt hist_ignore_dups       # ignore duplicated commands history list
-setopt hist_ignore_space      # ignore commands that start with space
-setopt hist_verify            # show command with history expansion to user before running it
-setopt hist_reduce_blanks     # remove superfluous blanks before recording entry
-setopt hist_ignore_all_dups   # delete old recorded entry if new entry is a duplicate
+# History options
+setopt bang_hist               # Treat the '!' character specially during expansion.
+setopt extended_history        # Write the history file in the ':start:elapsed;command' format.
+setopt hist_expire_dups_first  # Expire a duplicate event first when trimming history.
+setopt hist_find_no_dups       # Do not display a previously found event.
+setopt hist_ignore_all_dups    # Delete an old recorded event if a new event is a duplicate.
+setopt hist_ignore_dups        # Do not record an event that was just recorded again.
+setopt hist_ignore_space       # Do not record an event starting with a space.
+setopt hist_reduce_blanks      # Remove extra blanks from commands added to the history list.
+setopt hist_save_no_dups       # Do not write a duplicate event to the history file.
+setopt hist_verify             # Do not execute immediately upon history expansion.
+setopt inc_append_history      # Write to the history file immediately, not when the shell exits.
+setopt share_history           # Share history between all sessions.
+setopt NO_hist_beep            # Don't beep when accessing non-existent history.
 
 if which mise >/dev/null 2>&1; then
   eval "$(mise activate zsh)"
