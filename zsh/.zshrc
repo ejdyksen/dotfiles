@@ -42,6 +42,6 @@ setopt inc_append_history      # Write to the history file immediately, not when
 setopt share_history           # Share history between all sessions.
 setopt NO_hist_beep            # Don't beep when accessing non-existent history.
 
-if which mise >/dev/null 2>&1; then
+if (( ${+commands[mise]} )); then
   eval "$(mise activate zsh)"
 fi

@@ -28,6 +28,6 @@ path=(
 typeset -gU path fpath
 
 # Activate mise for non-interactive shells
-if which mise >/dev/null 2>&1; then
+if (( ${+commands[mise]} )); then
   eval "$(mise activate zsh --shims)"
 fi
