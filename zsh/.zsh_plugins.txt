@@ -4,6 +4,7 @@ mattmc3/ez-compinit
 zsh-users/zsh-completions
 zsh-users/zsh-syntax-highlighting
 
+$ZDOTDIR/plugins/op
 mattmc3/zephyr path:plugins/homebrew
 
 ohmyzsh/ohmyzsh path:lib
