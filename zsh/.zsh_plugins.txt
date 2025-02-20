@@ -5,7 +5,7 @@ zsh-users/zsh-completions
 zsh-users/zsh-syntax-highlighting
 
 $ZDOTDIR/plugins/op
-mattmc3/zephyr path:plugins/homebrew
+$ZDOTDIR/plugins/homebrew
 
 ohmyzsh/ohmyzsh path:lib
 ohmyzsh/ohmyzsh path:plugins/history-substring-search
