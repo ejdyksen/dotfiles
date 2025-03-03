@@ -15,3 +15,6 @@ fi
 
 # Set DOTFILES environment variable to the parent directory of this file
 export ZDOTDIR="${DOTFILES}/zsh"
+
+# Make sure the HISTFILE is in ZDOTDIR, since the omz lib/history.zsh helpfully sets it if not
+export HISTFILE="$ZDOTDIR/.zsh_history"
