@@ -4,7 +4,6 @@ mattmc3/ez-compinit
 zsh-users/zsh-syntax-highlighting
 
 $ZDOTDIR/plugins/op
-$ZDOTDIR/plugins/homebrew
 $ZDOTDIR/plugins/pnpm
 
 ohmyzsh/ohmyzsh path:lib
