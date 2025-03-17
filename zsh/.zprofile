@@ -20,7 +20,7 @@ path=(
   $HOME/.dotfiles/bin(N)
   $HOME/.local/bin(N)
   /opt/homebrew/bin(N)
-  /user/local/bin(N)
+  /usr/local/bin(N)
   $path
 )
 
