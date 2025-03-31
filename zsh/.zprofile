@@ -26,6 +26,13 @@ path=(
   $path
 )
 
+# Add Homebrew path to completions
+fpath=(
+  /opt/homebrew/share/zsh/site-functions(N)
+  /usr/local/share/zsh/site-functions(N)
+  $fpath
+)
+
 # Ensure path arrays do not contain duplicates.
 typeset -gU path fpath
 
