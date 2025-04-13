@@ -5,6 +5,7 @@ zsh-users/zsh-syntax-highlighting
 
 $ZDOTDIR/plugins/op
 $ZDOTDIR/plugins/pnpm
+$ZDOTDIR/plugins/go
 
 ohmyzsh/ohmyzsh path:lib
 ohmyzsh/ohmyzsh path:plugins/history-substring-search
