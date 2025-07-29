@@ -25,7 +25,8 @@
 [pull]
 	rebase = false
 	ff = only
-
+[gpg "ssh"]
+	allowedSignersFile = ~/.ssh/allowed_signers
 [include]
 	path = ~/.dotfiles/git/gitconfig.platform
 	path = ~/.dotfiles/git/gitconfig.local
