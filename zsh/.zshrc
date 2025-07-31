@@ -41,7 +41,3 @@ setopt hist_verify             # Do not execute immediately upon history expansi
 setopt inc_append_history      # Write to the history file immediately, not when the shell exits.
 setopt share_history           # Share history between all sessions.
 setopt NO_hist_beep            # Don't beep when accessing non-existent history.
-
-if (( ${+commands[mise]} )); then
-  eval "$(mise activate zsh)"
-fi
