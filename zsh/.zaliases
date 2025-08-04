@@ -4,3 +4,4 @@
 #
 
 alias kc=kubectl
+alias pnpx='pnpm dlx'
