@@ -11,6 +11,7 @@ ssh/
 .zsh_sessions/
 .zcompdump*
 .zsh_history
+.bash_history
 .zsh_plugins.zsh
 *.bak
 *.local.zsh

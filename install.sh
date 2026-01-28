@@ -56,6 +56,8 @@ function linkdotfile {
 }
 
 linkdotfile "zsh/.zshenv" ".zshenv"
+linkdotfile "bash/.bashrc" ".bashrc"
+linkdotfile "bash/.bash_profile" ".bash_profile"
 linkdotfile "git/gitconfig" .gitconfig
 linkdotfile "other/tmux.conf" .tmux.conf
 linkdotfile ssh .ssh
