@@ -18,3 +18,16 @@ export ZDOTDIR="${DOTFILES}/zsh"
 
 # Make sure the HISTFILE is in ZDOTDIR, since the omz lib/history.zsh helpfully sets it if not
 export HISTFILE="$ZDOTDIR/.zsh_history"
+
+# Ensure key paths are available for non-interactive, non-login shells (e.g. mosh)
+# Login shells will get the full PATH setup from .zprofile after path_helper runs
+path=(
+  $HOME/.dotfiles/bin(N)
+  $HOME/.local/bin(N)
+  /opt/homebrew/sbin(N)
+  /opt/homebrew/bin(N)
+  /usr/local/sbin(N)
+  /usr/local/bin(N)
+  $path
+)
+typeset -gU path
