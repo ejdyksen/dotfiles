@@ -1,0 +1,72 @@
+#!/bin/zsh
+#
+# Background worker for dotfiles auto-update.
+# Launched by auto-update.plugin.zsh — not intended to be run directly.
+#
+# Usage: _dotfiles_update_worker <dotfiles_dir> <state_dir>
+#
+
+emulate -L zsh
+
+dotfiles_dir="$1"
+state_dir="$2"
+log_file="$state_dir/update.log"
+lock_file="$state_dir/lock"
+
+# Ensure state directory exists
+[[ -d "$state_dir" ]] || mkdir -p "$state_dir"
+
+# --- Concurrency guard ---
+if [[ -f "$lock_file" ]]; then
+  lock_pid=$(<"$lock_file")
+  if kill -0 "$lock_pid" 2>/dev/null; then
+    exit 0
+  fi
+  rm -f "$lock_file"
+fi
+
+echo $$ > "$lock_file"
+trap 'rm -f "$lock_file"' EXIT INT TERM
+
+# --- Run updates, logging everything ---
+{
+  echo "=== dotfiles update: $(date) ==="
+
+  result="up-to-date"
+
+  # --- Pull dotfiles repo ---
+  if [[ -d "$dotfiles_dir/.git" ]]; then
+    before=$(git -C "$dotfiles_dir" rev-parse HEAD 2>/dev/null)
+    if git -C "$dotfiles_dir" pull --ff-only 2>&1; then
+      after=$(git -C "$dotfiles_dir" rev-parse HEAD 2>/dev/null)
+      if [[ "$before" != "$after" ]]; then
+        count=$(git -C "$dotfiles_dir" log --oneline "$before".."$after" 2>/dev/null | wc -l | tr -d ' ')
+        echo "Pulled $count new commit(s)"
+        result="pulled"
+      fi
+    else
+      echo "git pull --ff-only failed"
+      result="failed"
+    fi
+  fi
+
+  # --- Update Antidote + plugins (if present) ---
+  antidote_dir="${ANTIDOTE_HOME:-$HOME/.antidote}"
+  if [[ -d "$antidote_dir/.git" ]]; then
+    echo ""
+    echo "=== antidote update: $(date) ==="
+    git -C "$antidote_dir" pull --ff-only 2>&1 || true
+
+    if [[ -f "$antidote_dir/antidote.zsh" ]]; then
+      source "$antidote_dir/antidote.zsh"
+      antidote update 2>&1 || true
+    fi
+  fi
+
+  # --- Write result and timestamp ---
+  echo "$result" > "$state_dir/result"
+  date +%s > "$state_dir/last_update"
+
+  echo ""
+  echo "=== done: $(date) ==="
+} >> "$log_file" 2>&1

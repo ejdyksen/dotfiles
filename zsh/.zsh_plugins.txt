@@ -7,6 +7,7 @@ $ZDOTDIR/plugins/op
 $ZDOTDIR/plugins/pnpm
 $ZDOTDIR/plugins/go
 $ZDOTDIR/plugins/mise
+$ZDOTDIR/plugins/auto-update
 
 ohmyzsh/ohmyzsh path:lib
 ohmyzsh/ohmyzsh path:plugins/history-substring-search
