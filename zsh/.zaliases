@@ -6,3 +6,6 @@
 alias kc=kubectl
 alias pnpx='pnpm dlx'
 alias claude='claude --dangerously-skip-permissions'
+
+# Add SSH alias for Windows/WSL only
+[[ -n "$WSL_DISTRO_NAME" ]] && alias ssh='ssh.exe'
