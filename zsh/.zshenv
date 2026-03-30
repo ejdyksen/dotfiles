@@ -19,6 +19,9 @@ export ZDOTDIR="${DOTFILES}/zsh"
 # Make sure the HISTFILE is in ZDOTDIR, since the omz lib/history.zsh helpfully sets it if not
 export HISTFILE="$ZDOTDIR/.zsh_history"
 
+# Silence homebrew autoupdate message
+export HOMEBREW_NO_ENV_HINTS=1
+
 # Ensure key paths are available for non-interactive, non-login shells (e.g. mosh)
 # Login shells will get the full PATH setup from .zprofile after path_helper runs
 path=(
