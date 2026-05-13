@@ -63,6 +63,13 @@ trap 'rm -f "$lock_file"' EXIT INT TERM
     fi
   fi
 
+  # --- Refresh generated completion files ---
+  if [[ -x "$dotfiles_dir/bin/update-zsh-completions" ]]; then
+    echo ""
+    echo "=== generated zsh completions: $(date) ==="
+    "$dotfiles_dir/bin/update-zsh-completions" 2>&1 || true
+  fi
+
   # --- Write result and timestamp ---
   echo "$result" > "$state_dir/result"
   date +%s > "$state_dir/last_update"

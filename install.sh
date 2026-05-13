@@ -79,3 +79,8 @@ fi
 
 touch $SCRIPT_PATH/git/gitconfig.local
 touch $SCRIPT_PATH/ssh/config.local
+
+if [[ -x "$SCRIPT_PATH/bin/update-zsh-completions" ]]; then
+  echo "Updating generated zsh completions"
+  "$SCRIPT_PATH/bin/update-zsh-completions"
+fi

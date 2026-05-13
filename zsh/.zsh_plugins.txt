@@ -3,6 +3,7 @@ romkatv/powerlevel10k
 mattmc3/ez-compinit
 zsh-users/zsh-syntax-highlighting
 
+$ZDOTDIR/plugins/completions
 $ZDOTDIR/plugins/op
 $ZDOTDIR/plugins/pnpm
 $ZDOTDIR/plugins/go
