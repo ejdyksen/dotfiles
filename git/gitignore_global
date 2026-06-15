@@ -115,3 +115,5 @@ Session.vim
 
 # Redis DB
 dump.rdb
+
+**/.claude/settings.local.json
