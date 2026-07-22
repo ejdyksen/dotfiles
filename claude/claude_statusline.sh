@@ -4,38 +4,93 @@
 input=$(cat)
 
 model_name=$(jq -r '.model.display_name // "Claude"' <<<"$input")
-model_id=$(jq -r '.model.id // ""' <<<"$input")
-transcript=$(jq -r '.transcript_path // ""' <<<"$input")
 cwd=$(jq -r '.workspace.current_dir // .cwd // ""' <<<"$input")
 
-# Effort comes from settings, not the status payload
-effort=$(jq -r '.effortLevel // "default"' ~/.claude/settings.json 2>/dev/null)
+# Effort: live from the payload (reflects mid-session /effort changes); the payload
+# omits it when the model has no effort parameter, so fall back to the saved default.
+effort=$(jq -r '.effort.level // empty' <<<"$input")
+[[ -z "$effort" ]] && effort=$(jq -r '.effortLevel // "default"' ~/.claude/settings.json 2>/dev/null)
 
-# Context window: 1M models flagged with [1m]; otherwise 200k
-if [[ "$model_id" == *"[1m]"* || "$model_id" == *"1m"* ]]; then
-  ctx_max=1000000
-else
-  ctx_max=200000
+# Git status — one porcelain pass drives branch, ahead/behind, file states, and
+# stash; one rev-parse handles worktree detection; one log detects wip. Mirrors the
+# Powerlevel10k my_git_formatter symbols/colors. (Omits p10k's push-remote ⇠⇢ and
+# :remote-name markers — both niche and fiddly without gitstatusd.)
+branch=""
+in_worktree=0
+wt_name=""
+git_status=""
+porc=$(git -C "$cwd" status --porcelain=v2 --branch --show-stash 2>/dev/null)
+if [[ -n "$porc" ]]; then
+  # Branch name, or short SHA when detached. Kept out of eval (ref names are untrusted).
+  branch=$(awk '/^# branch.head/ { print $3; exit }' <<<"$porc")
+  [[ "$branch" == "(detached)" ]] && \
+    branch=$(awk '/^# branch.oid/ { print substr($3, 1, 8); exit }' <<<"$porc")
+
+  # Counts from the same output (integers only → safe to eval)
+  eval "$(awk '
+    /^# branch\.ab / { ahead = $3 + 0; behind = -($4 + 0) }
+    /^# stash /      { stash = $3 + 0 }
+    /^[12] /         { if (substr($2,1,1) != ".") s++; if (substr($2,2,1) != ".") u++ }
+    /^u /            { c++ }
+    /^\? /           { q++ }
+    END { printf "gs_staged=%d gs_unstaged=%d gs_untracked=%d gs_conflict=%d gs_ahead=%d gs_behind=%d gs_stash=%d",
+                  s+0, u+0, q+0, c+0, ahead+0, behind+0, stash+0 }
+  ' <<<"$porc")"
+
+  # One rev-parse: worktree detection + absolute git-dir for the in-progress-op check.
+  # In a linked worktree the git-dir differs from the shared common-dir.
+  { read -r gdir; read -r gcommon; } \
+    < <(git -C "$cwd" rev-parse --path-format=absolute --git-dir --git-common-dir 2>/dev/null)
+  if [[ -n "$gcommon" && "$gdir" != "$gcommon" ]]; then
+    in_worktree=1
+    # Prefer the name CC hands us; fall back to the worktree dir basename
+    wt_name=$(jq -r '.workspace.git_worktree // ""' <<<"$input")
+    [[ -z "$wt_name" ]] && wt_name=$(basename "$cwd")
+  fi
+
+  # In-progress operation (filesystem checks — no subprocess)
+  gs_action=""
+  if   [[ -d "$gdir/rebase-merge" || -d "$gdir/rebase-apply" ]]; then gs_action="rebase"
+  elif [[ -f "$gdir/MERGE_HEAD" ]];       then gs_action="merge"
+  elif [[ -f "$gdir/CHERRY_PICK_HEAD" ]]; then gs_action="cherry-pick"
+  elif [[ -f "$gdir/REVERT_HEAD" ]];      then gs_action="revert"
+  elif [[ -f "$gdir/BISECT_LOG" ]];       then gs_action="bisect"
+  fi
+
+  # p10k palette
+  M_CLEAN=$'\033[38;5;76m'   # green:  ahead/behind/stash
+  M_MOD=$'\033[38;5;178m'    # yellow: staged/unstaged/wip
+  M_UNTR=$'\033[38;5;39m'    # blue:   untracked
+  M_CONF=$'\033[38;5;196m'   # red:    conflicts / in-progress op
+  M_RST=$'\033[0m'
+
+  # "wip" if the latest commit summary contains the word wip/WIP
+  gs_summary=$(git -C "$cwd" log -1 --format=%s 2>/dev/null)
+  [[ "$gs_summary" =~ (^|[^[:alnum:]])(wip|WIP)([^[:alnum:]]|$) ]] && git_status+=" ${M_MOD}wip${M_RST}"
+
+  # Order mirrors p10k: ⇣behind⇡ahead  *stash  <op>  ~conflicts  +staged  !unstaged  ?untracked
+  (( gs_behind )) && git_status+=" ${M_CLEAN}⇣${gs_behind}${M_RST}"
+  if (( gs_ahead )); then
+    (( gs_behind )) && git_status+="${M_CLEAN}⇡${gs_ahead}${M_RST}" \
+                    || git_status+=" ${M_CLEAN}⇡${gs_ahead}${M_RST}"
+  fi
+  (( gs_stash ))       && git_status+=" ${M_CLEAN}*${gs_stash}${M_RST}"
+  [[ -n "$gs_action" ]] && git_status+=" ${M_CONF}${gs_action}${M_RST}"
+  (( gs_conflict ))    && git_status+=" ${M_CONF}~${gs_conflict}${M_RST}"
+  (( gs_staged ))      && git_status+=" ${M_MOD}+${gs_staged}${M_RST}"
+  (( gs_unstaged ))    && git_status+=" ${M_MOD}!${gs_unstaged}${M_RST}"
+  (( gs_untracked ))   && git_status+=" ${M_UNTR}?${gs_untracked}${M_RST}"
 fi
 
-# Pull token usage from most recent assistant message in transcript
-tokens=0
-if [[ -f "$transcript" ]]; then
-  tokens=$(tail -r "$transcript" 2>/dev/null | awk '
-    /"usage"/ {
-      print
-      exit
-    }
-  ' | jq -r '
-    (.message.usage.input_tokens // 0)
-    + (.message.usage.cache_read_input_tokens // 0)
-    + (.message.usage.cache_creation_input_tokens // 0)
-    + (.message.usage.output_tokens // 0)
-  ' 2>/dev/null)
-  [[ -z "$tokens" || "$tokens" == "null" ]] && tokens=0
-fi
-
-pct=$(awk -v t="$tokens" -v m="$ctx_max" 'BEGIN { printf "%.0f", (t/m)*100 }')
+# Context window: sourced straight from the payload. `used_percentage` and
+# `context_window_size` already account for the model's true window (incl. 1M),
+# so no [1m] heuristic or transcript parsing is needed. Fields may be null before
+# the first API response — jq fallbacks keep it at 0 then.
+read -r ctx_max pct tokens < <(jq -r '
+  [ (.context_window.context_window_size // 200000)
+  , (.context_window.used_percentage // 0 | floor)
+  , (.context_window.total_input_tokens // 0)
+  ] | @tsv' <<<"$input" | tr '\t' ' ')
 [[ -z "$pct" ]] && pct=0
 
 # Pretty token string (12.3k / 1.05M)
@@ -62,6 +117,8 @@ BOLD=$'\033[1m'
 CYAN=$'\033[38;5;39m'      # bright cyan-blue
 MAGENTA=$'\033[38;5;177m'  # soft purple
 GREY=$'\033[38;5;245m'
+GREEN=$'\033[38;5;42m'      # branch
+AMBER=$'\033[38;5;214m'    # worktree badge
 SEP="${GREY}│${RESET}"
 
 # Bar color by usage
@@ -88,7 +145,14 @@ effort_seg="${EFFORT_COLOR}${EFFORT_ICON} ${effort}${RESET}"
 ctx_seg="${BAR_COLOR}${bar}${RESET} ${BAR_COLOR}${pct}%${RESET} ${DIM}(${fmt_tokens})${RESET}"
 dir_seg="${GREY}📁 ${dir_name}${RESET}"
 
-echo " ${model_seg}  ${SEP}  ${effort_seg}  ${SEP}  ${ctx_seg}  ${SEP}  ${dir_seg}"
+# Optional git segments (omitted entirely outside a repo)
+git_seg=""
+if [[ -n "$branch" ]]; then
+  git_seg="  ${SEP}  ${GREEN} ${branch}${RESET}${git_status}"
+  (( in_worktree )) && git_seg+="  ${AMBER}🌳 ${wt_name}${RESET}"
+fi
+
+echo " ${model_seg}  ${SEP}  ${effort_seg}  ${SEP}  ${ctx_seg}  ${SEP}  ${dir_seg}${git_seg}"
 
 
  
