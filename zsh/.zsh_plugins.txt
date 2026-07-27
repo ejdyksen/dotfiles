@@ -10,7 +10,28 @@ $ZDOTDIR/plugins/go
 $ZDOTDIR/plugins/mise
 $ZDOTDIR/plugins/auto-update
 
-ohmyzsh/ohmyzsh path:lib
+# oh-my-zsh's lib, listed file by file rather than as `path:lib`.
+#
+# `path:lib` sources all 21 files (~100KB). The nine omitted here only support
+# parts of oh-my-zsh we don't run -- its prompt themes (powerlevel10k replaces
+# those) and its `omz` CLI (antidote replaces that): async_prompt, bzr, cli,
+# correction, diagnostics, git, nvm, prompt_info_functions, vcs_info. Between
+# them they define 30 functions, none referenced by anything we do load.
+#
+# If something turns up missing, `path:lib` restores the old behavior.
+ohmyzsh/ohmyzsh path:lib/clipboard.zsh
+ohmyzsh/ohmyzsh path:lib/compfix.zsh
+ohmyzsh/ohmyzsh path:lib/completion.zsh
+ohmyzsh/ohmyzsh path:lib/directories.zsh
+ohmyzsh/ohmyzsh path:lib/functions.zsh
+ohmyzsh/ohmyzsh path:lib/grep.zsh
+ohmyzsh/ohmyzsh path:lib/history.zsh
+ohmyzsh/ohmyzsh path:lib/key-bindings.zsh
+ohmyzsh/ohmyzsh path:lib/misc.zsh
+ohmyzsh/ohmyzsh path:lib/spectrum.zsh
+ohmyzsh/ohmyzsh path:lib/termsupport.zsh
+ohmyzsh/ohmyzsh path:lib/theme-and-appearance.zsh
+
 ohmyzsh/ohmyzsh path:plugins/history-substring-search
 ohmyzsh/ohmyzsh path:plugins/aws
 ohmyzsh/ohmyzsh path:plugins/kubectx
