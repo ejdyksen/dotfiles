@@ -22,6 +22,13 @@ setopt extended_glob
 # directory changes, which detects more than the check this skips.
 zstyle ':plugin:ez-compinit' 'use-cache' 'yes'
 
+# oh-my-zsh's lib files cache their capability probes (e.g. lib/grep.zsh shells
+# out to `grep` to test flag support) under $ZSH_CACHE_DIR. We don't run omz
+# itself, so nothing else sets it -- unset, the path becomes /grep-alias, the
+# write fails silently, and every shell re-runs the probe. Set before loading.
+export ZSH_CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/zsh"
+[[ -d $ZSH_CACHE_DIR ]] || mkdir -p $ZSH_CACHE_DIR
+
 # Load antidote and plugins
 source $HOME/.antidote/antidote.zsh
 antidote load
