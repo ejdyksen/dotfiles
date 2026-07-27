@@ -15,8 +15,13 @@ export PAGER="${PAGER:-less}"
 # Paths
 #
 
-# Add a few items to the path that we need for mise
+# Add a few items to the path that we need for mise.
+#
+# The shims entry is the entire output of `mise activate zsh --shims`, inlined
+# to save a fork. If shims ever misbehave, diff this against that command.
+# Interactive shells replace these with real binary paths via plugins/mise.
 path=(
+  ${MISE_DATA_DIR:-${XDG_DATA_HOME:-$HOME/.local/share}/mise}/shims(N)
   $HOME/.dotfiles/bin(N)
   $HOME/.local/bin(N)
   /opt/homebrew/sbin(N)
@@ -36,7 +41,3 @@ fpath=(
 # Ensure path arrays do not contain duplicates.
 typeset -gU path fpath
 
-# Activate mise for non-interactive shells
-if (( ${+commands[mise]} )); then
-  eval "$(mise activate zsh --shims)"
-fi
