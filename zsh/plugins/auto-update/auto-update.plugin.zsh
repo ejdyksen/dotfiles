@@ -15,8 +15,9 @@ if [[ -f "$state_dir/result" ]]; then
 fi
 
 # --- Phase 2: Check if update is due ---
-local now last_update=0
-now=$(date +%s)
+# $EPOCHSECONDS is $(date +%s) without the fork.
+zmodload -F zsh/datetime p:EPOCHSECONDS
+local now=$EPOCHSECONDS last_update=0
 [[ -f "$state_dir/last_update" ]] && last_update=$(<"$state_dir/last_update")
 (( now - last_update < ${DOTFILES_UPDATE_INTERVAL:-2592000} )) && return
 
