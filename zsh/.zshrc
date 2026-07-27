@@ -17,6 +17,11 @@ setopt extended_glob
 [[ -d $HOME/.antidote ]] ||
   git clone https://github.com/mattmc3/antidote $HOME/.antidote
 
+# Cache the completion dump instead of re-verifying it on every shell. Safe
+# because $ZDOTDIR/plugins/completions invalidates the dump whenever an fpath
+# directory changes, which detects more than the check this skips.
+zstyle ':plugin:ez-compinit' 'use-cache' 'yes'
+
 # Load antidote and plugins
 source $HOME/.antidote/antidote.zsh
 antidote load
