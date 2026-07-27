@@ -29,6 +29,10 @@ zstyle ':plugin:ez-compinit' 'use-cache' 'yes'
 export ZSH_CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/zsh"
 [[ -d $ZSH_CACHE_DIR ]] || mkdir -p $ZSH_CACHE_DIR
 
+# Read .zwc files instead of re-parsing plugin sources on every shell.
+zstyle ':antidote:static' zcompile 'yes'
+zstyle ':antidote:bundle:*' zcompile 'yes'
+
 # Load antidote and plugins
 source $HOME/.antidote/antidote.zsh
 antidote load
