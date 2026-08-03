@@ -1,8 +1,5 @@
-(( ${+commands[pnpm]} )) || return
-
-export PNPM_HOME="$HOME/.local/share/pnpm/store"
-
 path=(
-  $PNPM_HOME(N)
+  $HOME/Library/pnpm/bin(N)       # macOS default global bin dir
+  $HOME/.local/share/pnpm/bin(N)  # Linux default
   $path
 )
