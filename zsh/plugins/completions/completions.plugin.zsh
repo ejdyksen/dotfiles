@@ -42,6 +42,38 @@ _dotfiles_bust_stale_compdump() {
 
   [[ -f "$ZSH_COMPDUMP" ]] || return
 
+  # Bust a dump that is too small to be a real one.
+  #
+  # A 0-byte dump is otherwise permanently unrecoverable. `compinit -C` sources
+  # the dump with no validation at all, so an empty file is a silent success
+  # that loads zero completions -- and the mtime check below can never save us,
+  # because ez-compinit unconditionally touches the dump after running compinit,
+  # leaving it newer than every fpath directory forever. Every new shell then
+  # starts with no completions and restarting the shell doesn't help.
+  #
+  # The threshold is safe because the dump is dominated by stock zsh's own
+  # completion set, not by anything we add: a structurally valid dump carrying
+  # zero completions is ~162 bytes, while a bare `zsh -f` with no plugins
+  # whatsoever is ~49 KB and our full setup is ~49.4 KB. Plugins contribute
+  # about 100 bytes, so that ~49 KB floor holds on every platform this repo
+  # supports.
+  #
+  # 4096 sits 25x above the degenerate case and 12x below the real floor. Do NOT
+  # raise it toward the observed ~49 KB to catch more corruption. If the
+  # threshold ever exceeds a legitimate dump, this hook deletes it, compinit
+  # regenerates it, and the next shell deletes it again -- a silent infinite
+  # regeneration loop that runs a full compinit on every shell and destroys
+  # precisely the startup budget these optimizations exist to protect. Erring
+  # low and occasionally missing a mid-file truncation is far cheaper.
+  #
+  # The glob qualifier keeps this forkless: (N) so a missing file yields nothing
+  # rather than an error, (L+4096) to match only sizes above 4096 bytes.
+  local -a _valid=( "$ZSH_COMPDUMP"(NL+4096) )
+  if (( ! $#_valid )); then
+    rm -f -- "$ZSH_COMPDUMP" "$ZSH_COMPDUMP.zwc"
+    return
+  fi
+
   local dir
   for dir in $fpath; do
     if [[ "$dir" -nt "$ZSH_COMPDUMP" ]]; then
