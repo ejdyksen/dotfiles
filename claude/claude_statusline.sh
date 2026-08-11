@@ -19,6 +19,7 @@ branch=""
 in_worktree=0
 wt_name=""
 git_status=""
+gcommon=""
 porc=$(git -C "$cwd" status --porcelain=v2 --branch --show-stash 2>/dev/null)
 if [[ -n "$porc" ]]; then
   # Branch name, or short SHA when detached. Kept out of eval (ref names are untrusted).
@@ -136,9 +137,19 @@ case "$effort" in
   *)     EFFORT_COLOR="$GREY";            EFFORT_ICON="·"   ;;
 esac
 
-# Shorten cwd: ~ for home, basename if deep
-short_cwd="${cwd/#$HOME/~}"
-dir_name=$(basename "$short_cwd")
+# Project name. Claude Code puts worktrees at <repo>/.claude/worktrees/<name>, so in a
+# worktree session the cwd basename is just the worktree name — already shown by the 🌳
+# badge. The git common-dir points at the *main* worktree's .git in every case, so its
+# parent is the project root. Outside a repo, fall back to the cwd basename.
+proj_root="${gcommon%/}"
+proj_root="${proj_root%/.git}"  # normal repo: /path/proj/.git → /path/proj
+proj_root="${proj_root%.git}"   # bare repo:   /path/proj.git → /path/proj
+proj_root="${proj_root%/}"
+if [[ -n "$proj_root" ]]; then
+  dir_name=$(basename "$proj_root")
+else
+  dir_name=$(basename "${cwd/#$HOME/~}")
+fi
 
 model_seg="${CYAN}⏺ ${BOLD}${model_name}${RESET}"
 effort_seg="${EFFORT_COLOR}${EFFORT_ICON} ${effort}${RESET}"
