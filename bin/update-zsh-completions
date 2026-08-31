@@ -33,4 +33,4 @@ manage_generated_completion() {
   generate_completion "$target_path" "$@"
 }
 
-manage_generated_completion op _op op completion zsh
+manage_generated_completion mise _mise mise completion zsh
