@@ -12,7 +12,11 @@ generate_completion() {
   shift
 
   local tmp_path="${target_path}.tmp"
-  "$@" > "$tmp_path"
+  if ! "$@" > "$tmp_path" 2>/dev/null; then
+    rm -f -- "$tmp_path"
+    print -u2 -r -- "failed generating ${target_path:t} (ran: $*)"
+    return 0
+  fi
   chmod 0644 "$tmp_path"
   mv "$tmp_path" "$target_path"
   print -r -- "generated ${target_path:t}"
@@ -25,12 +29,22 @@ manage_generated_completion() {
 
   local target_path="$completion_dir/$completion_name"
 
+  # Not every machine has every tool -- skip silently.
   if ! whence -p "$command_name" >/dev/null; then
-    print -u2 -r -- "skipped ${completion_name}: command '$command_name' not found"
     return 0
   fi
 
   generate_completion "$target_path" "$@"
 }
 
-manage_generated_completion mise _mise mise completion zsh
+# One tool per line: command to check, completion file, generator command.
+generators=(
+  'docker  _docker  docker completion zsh'
+  'gh      _gh      gh completion -s zsh'
+  'mise    _mise    mise completion zsh'
+  'op      _op      op completion zsh'
+)
+
+for spec in $generators; do
+  manage_generated_completion ${=spec}
+done
