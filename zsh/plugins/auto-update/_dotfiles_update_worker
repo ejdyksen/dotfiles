@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/usr/bin/env zsh
 #
 # Background worker for dotfiles auto-update.
 # Launched by auto-update.plugin.zsh — not intended to be run directly.

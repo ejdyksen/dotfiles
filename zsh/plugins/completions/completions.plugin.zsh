@@ -4,6 +4,7 @@ local completions_dir="$ZDOTDIR/completions"
 
 local -a completion_fpaths=(
   "$completions_dir"
+  /home/linuxbrew/.linuxbrew/share/zsh/site-functions(N)
   /opt/homebrew/share/zsh/site-functions(N)
   /usr/local/share/zsh/site-functions(N)
   /usr/local/share/zsh/vendor-completions(N)

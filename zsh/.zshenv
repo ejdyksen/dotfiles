@@ -38,6 +38,8 @@ export SHELL_SESSIONS_DISABLE=1
 path=(
   $HOME/.dotfiles/bin(N)
   $HOME/.local/bin(N)
+  /home/linuxbrew/.linuxbrew/sbin(N)
+  /home/linuxbrew/.linuxbrew/bin(N)
   /opt/homebrew/sbin(N)
   /opt/homebrew/bin(N)
   /usr/local/sbin(N)

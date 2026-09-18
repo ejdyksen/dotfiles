@@ -24,6 +24,8 @@ path=(
   ${MISE_DATA_DIR:-${XDG_DATA_HOME:-$HOME/.local/share}/mise}/shims(N)
   $HOME/.dotfiles/bin(N)
   $HOME/.local/bin(N)
+  /home/linuxbrew/.linuxbrew/sbin(N)
+  /home/linuxbrew/.linuxbrew/bin(N)
   /opt/homebrew/sbin(N)
   /opt/homebrew/bin(N)
   /usr/local/sbin(N)
@@ -33,6 +35,7 @@ path=(
 
 # Add Homebrew path to completions
 fpath=(
+  /home/linuxbrew/.linuxbrew/share/zsh/site-functions(N)
   /opt/homebrew/share/zsh/site-functions(N)
   /usr/local/share/zsh/site-functions(N)
   $fpath
