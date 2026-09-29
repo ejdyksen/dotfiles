@@ -117,3 +117,7 @@ Session.vim
 dump.rdb
 
 **/.claude/settings.local.json
+
+# Coding agent worktrees
+.claude/worktrees/
+*.worktrees/
