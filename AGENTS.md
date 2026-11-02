@@ -31,6 +31,7 @@ Plugins are defined in `zsh/.zsh_plugins.txt` and managed by Antidote. Custom pl
 - `pnpm/` - pnpm package manager
 - `go/` - Go environment
 - `mise/` - Mise version manager (overrides shims with full activation for interactive shells)
+- `try/` - Shell wrapper for [try](https://github.com/tobi/try) (cached `try init`; loads after `mise/`)
 
 External plugins from `.zsh_plugins.txt` include Powerlevel10k, zsh-syntax-highlighting, and selective ohmyzsh modules (history-substring-search, aws, kubectx).
 

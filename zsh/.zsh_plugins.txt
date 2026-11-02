@@ -8,6 +8,7 @@ $ZDOTDIR/plugins/op
 $ZDOTDIR/plugins/pnpm
 $ZDOTDIR/plugins/go
 $ZDOTDIR/plugins/mise
+$ZDOTDIR/plugins/try
 $ZDOTDIR/plugins/auto-update
 
 # oh-my-zsh's lib, listed file by file rather than as `path:lib`.
