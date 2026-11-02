@@ -1,5 +1,7 @@
 (( ${+commands[try]} )) || return
 
+export TRY_PATH=${TRY_PATH:-$HOME/Dev/tries}
+
 # Shell wrapper for try (github.com/tobi/try). This is a cache of
 # `eval "$(try init)"` -- generating it boots Ruby, which would cost ~0.1-0.2s
 # on every shell. Must load after plugins/mise, which puts `try` on PATH.
